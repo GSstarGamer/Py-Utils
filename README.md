@@ -23,7 +23,7 @@ You can still install the py-utils.py file and use in your dir
 If you an linux user than do this
 
 ```sh
-    curl https://raw.githubusercontent.com/GSstarGamer/Py-Utils/main/Py-Utls.py
+    wget https://raw.githubusercontent.com/GSstarGamer/Py-Utils/main/Py-Utls.py
 ```
 and import py-utiles in your src code.
 
