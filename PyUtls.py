@@ -8,8 +8,14 @@ import sys
 from typing import Tuple, List, Any, TYPE_CHECKING
 
 platform = platform.platform().split("-")[0]
-columns = shutil.get_terminal_size().columns
-lines = int(round(shutil.get_terminal_size().lines/2, 0))
+
+
+def columns():
+    return os.get_terminal_size().columns
+
+
+def lines():
+    return int(round(os.get_terminal_size().lines/2, 0))
 
 
 os.system('')
@@ -67,7 +73,7 @@ class colors:
 
     def gradient(
         start: Tuple[int, int, int], end: Tuple[int, int, int], steps: int
-        ) -> List[Tuple[int, int, int]]:
+    ) -> List[Tuple[int, int, int]]:
         """
         Generate a gradient, from the start color to the end color with `steps` amount.
         Args:
@@ -99,7 +105,7 @@ class colors:
 
     def hex(hexCode):
         return colors.rgb(hexCode[:2], 16, hexCode[2:4], 16, hexCode[4:], 16)
-    
+
     def gradientText(text, startColor, endColor, center=0):
         string = []
         grad = colors.gradient(startColor, endColor, len(text))
@@ -107,7 +113,6 @@ class colors:
             string.append(str(colors.rgb(*grad[i])) + char)
         string.append(str(colors.CEND))
         return ''.join(string).center(center)
-        
 
 
 class projectDetails:
@@ -226,12 +231,12 @@ def fail(message):
     print(f'{current_time()} {colors.CBOLD+colors.CREDBG}FAIL{colors.CEND+colors.CWHITE}: {colors.CBOLD+colors.CRED2+str(message)+colors.CEND}')
 
 
-def log(ask):
+def binput(ask):
     waitForStartup()
     return input(f'{current_time()} {colors.CWHITE+ask+colors.CEND}')
 
 
-def bprint(message=None) -> None:
+def log(message=None) -> None:
     waitForStartup()
     if message:
         if settings.printCap:
@@ -261,6 +266,22 @@ def clear():
             if settings.logoOnClear:
                 logo()
 
+
+def print2(message=None) -> None:
+    waitForStartup()
+    if message:
+        if settings.printCap:
+            text = f'{colors.CBOLD+colors.CWHITE+str(message).capitalize()}'
+            print(text+' '*(columns()-len(text)), end='\r')
+
+        else:
+            text = f'{colors.CBOLD+colors.CWHITE+message}'
+            print(text+' '*(columns()-len(text)), end='\r')
+
+
+
+    else:
+        print(end='\r')
 
 # def makeMenu(**opts):
 #     for opt,do in opts.items():
